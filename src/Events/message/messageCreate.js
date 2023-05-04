@@ -135,23 +135,10 @@ module.exports = class extends Event {
         });
       }
 
-      const internalLogChannel = "1078839195382054962";
-
       command.run(message, args).catch(async (error) => {
         await this.client.logger.error(error.stack);
-        const errorEmbed = new EmbedBuilder().setColor("Red").addFields({
-          name: `Command ${command.name} raised an error:`,
-          value:
-            "```js\n" +
-            error.stack.replace(new RegExp(process.env.PWD, "g"), ".") +
-            "\n```",
-        });
 
         message.channel.send(["An unexpected error has occured!"].join("\n"));
-
-        return await this.client.channels.cache
-          .get(internalLogChannel)
-          .send({ embeds: [errorEmbed] });
       });
     }
   }

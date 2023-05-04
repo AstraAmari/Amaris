@@ -1,0 +1,10 @@
+{
+  "prefix": "//",
+  "token": "MTA5NjI0ODIxNjI5NjYyODI3Ng.Gqndku.s7wYx3tMzcEeeE-tiKddVmivuUFQLlLCZhtsrw",
+  "owners": ["1096235445563691071"],
+  "defaultPerms": ["SendMessages"],
+  "db": {
+    "url": "mongodb+srv://a39461960:No05YUig5GFSpHVM@cluster0.tg2mnac.mongodb.net/?retryWrites=true&w=majority",
+    "name": "Amaris"
+  }
+}
