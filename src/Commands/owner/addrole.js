@@ -15,12 +15,12 @@ module.exports = class extends Command {
 
     let count = 0;
 
-    message.guild.members.cache.forEach(async (member) => {
-      if (!member.roles.cache.has(role.id)) {
-        await member.roles.add(role);
+    for (const member of message.guild.members.cache) {
+      if (!member[1].roles.cache.has(role.id) && !member[1].user.bot) {
+        await member[1].roles.add(role);
         count++;
       }
-    });
+    }
 
     message.channel.send(`Added the role to ${count} members.`);
   }
