@@ -6,6 +6,7 @@ module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "globalban",
+      aliases: ["gb"],
       category: "moderation",
       userPerms: ["BanMembers"],
     });
