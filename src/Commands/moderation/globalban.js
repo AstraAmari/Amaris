@@ -12,10 +12,10 @@ module.exports = class extends Command {
     });
   }
 
-  async run(message) {
-    const user = message.mentions.users.first();
+  async run(message, args) {
+    const user = message.guild.members.cache.get(args[0]);
 
-    if (!user) return message.reply("Please mention a user to ban.");
+    if (!user) return message.reply("Please add a user id to ban.");
 
     // Get list of guilds bot is in
     const guilds = message.client.guilds.cache.array();
