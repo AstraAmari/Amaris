@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
     const member = message.guild.members.cache.get(args[0]);
 
-    if (!member) return message.reply("Please add a user id to ban.");
+    if (!member) return message.reply("either this user is not in this guild, or the id is incorrect");
 
     // Get list of guilds bot is in
     client.guilds.cache.forEach(async (guild) => {
