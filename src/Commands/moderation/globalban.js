@@ -15,13 +15,12 @@ module.exports = class extends Command {
   async run(message, args) {
     const client = this.client;
 
-    const user = message.guild.members.cache.get(args[0]);
+    const member = message.guild.members.cache.get(args[0]);
 
-    if (!user) return message.reply("Please add a user id to ban.");
+    if (!member) return message.reply("Please add a user id to ban.");
 
     // Get list of guilds bot is in
     client.guilds.cache.forEach(async (guild) => {
-      const member = await guild.members.fetch({ force: true }, user);
       if (member) {
         await member
           .ban({ reason: "Global ban" })
