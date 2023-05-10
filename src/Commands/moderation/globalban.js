@@ -18,24 +18,18 @@ module.exports = class extends Command {
     if (!user) return message.reply("Please add a user id to ban.");
 
     // Get list of guilds bot is in
-    const guilds = message.client.guilds.cache.array();
-
-    // Ban user from all guilds
-    for (const guild of guilds) {
-      const member = await guild.members.fetch(user);
+    client.guilds.cache.forEach(async (guild) => {
+      const member = await guild.members.fetch({ force: true }, user);
       if (member) {
-        try {
-          await member.ban({ reason: "Global ban" });
-          message.channel.send(`Banned ${user.tag} from ${guild.name}`);
-        } catch (error) {
-          message.channel.send(
-            `Failed to ban ${user.tag} from ${guild.name}: ${error}`
+        await member
+          .ban({ reason: "Global ban" })
+          .catch(() =>
+            message.channel.send(
+              `Failed to ban ${user.tag} from ${guild.name}: ${error}`
+            )
           );
-        }
+        message.channel.send(`Banned ${user.tag} from ${guild.name}`);
       }
-    }
-
-    // Send confirmation message
-    message.channel.send(`${user.tag} has been banned from all servers.`);
+    });
   }
 };
