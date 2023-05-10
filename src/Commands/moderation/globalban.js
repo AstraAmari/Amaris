@@ -26,10 +26,10 @@ module.exports = class extends Command {
           .ban({ reason: "Global ban" })
           .catch(() =>
             message.channel.send(
-              `Failed to ban ${user.tag} from ${guild.name}: ${error}`
+              `Failed to ban ${member.user.tag} from ${guild.name}: ${error}`
             )
           );
-        message.channel.send(`Banned ${user.tag} from ${guild.name}`);
+        message.channel.send(`Banned ${member.user.tag} from ${guild.name}`);
       }
     });
   }
