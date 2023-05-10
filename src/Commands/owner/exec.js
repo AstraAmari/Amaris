@@ -25,7 +25,9 @@ module.exports = class extends Command {
     exec(stuff, (error, stdout) => {
       const response = stdout || error;
 
-      if (response.length > 2000) {
+      const comparedLength = 1024
+
+      if (response.length > comparedLength) {
         console.log(response);
         return message.channel.send({
           content: `The response is above 2000 characters\n the response has been logged to the console`,
