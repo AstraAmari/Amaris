@@ -1,13 +1,13 @@
 "use strict";
 
-const { EmbedBuilder } = require("discord.js"),
-  Command = require("../../Structures/Command");
+const Command = require("../../Structures/Command");
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "globalban",
-      category: "Moderation",
+      aliases: ["gb"],
+      category: "moderation",
       userPerms: ["BanMembers"],
     });
   }
