@@ -13,6 +13,8 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
+    const client = this.client;
+
     const user = message.guild.members.cache.get(args[0]);
 
     if (!user) return message.reply("Please add a user id to ban.");
