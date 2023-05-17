@@ -80,9 +80,7 @@ module.exports = class extends Command {
       `${message.author} muted ${member.user}`
     );
 
-    return message.channel.send(`Muted ${member.user.tag}`).catch((err) => {
-      message.channel.send(`${err.stack}`);
-    });
+    return message.channel.send(`Muted ${member.user.tag}`).catch(() => null);
   }
 
   unmuteAfter(member, duration) {

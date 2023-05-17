@@ -50,6 +50,11 @@ module.exports = class extends Command {
       message.guild.id,
       `${message.author} warned ${userObj.user} for ${content}`
     );
+
+    userObj
+      .send(`You were warned in ${message.guild.name} for ${content}`)
+      .catch(() => null);
+
     message.channel.send(
       `${userObj.toString()} was warned (${userWarning.warnings.length})`
     );

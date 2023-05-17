@@ -39,11 +39,7 @@ module.exports = class extends Command {
         .send(
           `You have been kicked from ${member.guild.name} by ${message.author.tag} ${forReason}`
         )
-        .catch(async (msg) => {
-          msg.channel.send(
-            `Cannot dm this user, however they hve still been kicked.`
-          );
-        });
+        .catch(() => null);
 
       await member.kick(content);
       await this.client.modLog(

@@ -40,11 +40,7 @@ module.exports = class extends Command {
         .send(
           `You have been banned from ${member.guild.name} by ${message.author.tag} ${reason}`
         )
-        .catch(async (msg) => {
-          msg.channel.send(
-            `Cannot dm this user, however they have still been banned`
-          );
-        });
+        .catch(() => null);
 
       member.ban({ reason: reason });
       await this.client.modLog(
