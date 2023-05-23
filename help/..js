@@ -10,16 +10,15 @@ module.exports = class extends Command {
       ownerOnly: true,
     });
   }
-  // eslint-disable-next-line no-unused-vars
 
   async run(message, args) {
     const member = message.guild.members.cache.get(args[0]);
 
-    if (!member) return message.channel.send(`please supply an @mention or ID`);
+    if (!member) return message.channel.send(`Please supply an @mention or ID`);
 
     const reason = args[1];
 
-    if (!reason) return message.channel.send(`please add a reason`);
+    if (!reason) return message.channel.send(`Please add a reason`);
 
     if (member.id === message.author.id)
       return message.channel.send("You cannot ban yourself");
@@ -32,19 +31,14 @@ module.exports = class extends Command {
       "1110222778503802890",
     ];
 
-    if (!networkGuilds)
-      return message.channel.send(
-        `there is either no ids in the networkGuilds arrary or i am simply not in the guild that has been added to that array`
-      );
-
-    if (networkGuilds.cache.has(member.id)) {
+    if (networkGuilds.includes(member.id)) {
       await message.channel.send(
-        `Banned ${member.tag} from ${networkGuilds.size} network guilds`
+        `Banned ${member.tag} from ${networkGuilds.length} network guilds`
       );
 
       await member
         .send(
-          `You\'ve been banned globally throughout Amaris servers for ${reason}`
+          `You've been globally banned throughout Amaris servers for ${reason}`
         )
         .catch(() => null);
 
