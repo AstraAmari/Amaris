@@ -5,13 +5,33 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
+<<<<<<< HEAD
+      name: "add",
+      category: "owner",
+=======
       name: "gb",
       category: "Owner",
+>>>>>>> 214d3af5241bcdbed5abf41711d27cd5055f5445
       ownerOnly: true,
     });
   }
   // eslint-disable-next-line no-unused-vars
 
+<<<<<<< HEAD
+  async run(message) {
+    const role = message.guild.roles.cache.get("1097610144285724782");
+
+    let count = 0;
+
+    for (const member of message.guild.members.cache) {
+      if (!member[1].roles.cache.has(role.id) && !member[1].user.bot) {
+        await member[1].roles.add(role);
+        count++;
+      }
+    }
+
+    message.channel.send(`Added the role to ${count} members.`);
+=======
   async run(message, args) {
     const member = message.guild.members.cache.get(args[0]);
 
@@ -57,5 +77,6 @@ module.exports = class extends Command {
     } else {
       return message.channel.send(`I cannot ban this user`);
     }
+>>>>>>> 214d3af5241bcdbed5abf41711d27cd5055f5445
   }
 };
