@@ -37,7 +37,7 @@ module.exports = class extends Command {
         `there is either no ids in the networkGuilds arrary or i am simply not in the guild that has been added to that array`
       );
 
-    if (networkGuilds.has(member.id)) {
+    networkGuilds.forEach(async (guild) => {
       await message.channel.send(
         `Banned ${member.tag} from ${networkGuilds.size} network guilds`
       );
@@ -53,9 +53,7 @@ module.exports = class extends Command {
         `${message.author} globally banned ${member.user} for ${reason}`
       );
 
-      return await member.ban();
-    } else {
-      return message.channel.send(`I cannot ban this user`);
-    }
+      if (member.bannable) return member.ban();
+    });
   }
 };
