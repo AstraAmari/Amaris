@@ -12,36 +12,44 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    const guilds = [];
+    const client = this.client;
 
-    let networkGulds = client.guilds.cache.get(guilds);
+    // const guilds = [
+    //   "1098623720647577652",
+    //   "1108781059765698631",
+    //   "1096613440694538364",
+    // ];
 
-    const member = client.users.cache.get(args[0]);
+    // const networkGulds = client.guilds.cache.get(guilds);
 
-    if (!member) return message.channel.send(`Add a user id`);
+    const members = client.users.cache.get(args[0]);
 
-    if (member.id === message.author.id)
+    if (!members) return message.channel.send(`Add a user id`);
+
+    if (members.id === message.author.id)
       return message.channel.send(`You cannot ban yourself`);
 
-    if (member.id === client.user.id)
+    if (members.id === client.user.id)
       return message.channel.send(`You cannot ban me`);
 
     const reason = args[1];
 
     if (!reason) return message.channel.send(`Please add a reason`);
 
-    networkGulds.forEach(async () => {
-      if (member.bannable) return await member.ban({ reason: reason });
+    client.guilds.cache.forEach(async (guild) => {
+      const member = guild.members.cache.get(args[0]);
+      if (member && member.bannable) {
+        await member.ban({ reason: reason });
+        await member
+          .send(
+            `You've been banned from amaris servers for ${reason} by ${message.author.tag}`
+          )
+          .catch(() => null);
+      }
     });
 
-    await member
-      .send(
-        `You\'ve been banned from amaris servers for ${reason} by ${message.author.tag}`
-      )
-      .catch(() => null);
-
     return message.channel.send(
-      `You have banned ${member.tag} throughout amaris servers for ${reason}`
+      `You have banned ${members.tag} throughout amaris servers for ${reason}`
     );
   }
 };
