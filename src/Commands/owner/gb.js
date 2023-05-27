@@ -6,7 +6,7 @@ module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "gb",
-      category: "owner",
+      category: "Owner",
       ownerOnly: true,
     });
   }
