@@ -32,7 +32,7 @@ module.exports = class extends Command {
     if (members.id === client.user.id)
       return message.channel.send(`You cannot ban me`);
 
-    const reason = args[1];
+    const reason = args.join(" ");
 
     if (!reason) return message.channel.send(`Please add a reason`);
 
