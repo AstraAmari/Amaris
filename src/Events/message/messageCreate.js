@@ -139,17 +139,6 @@ module.exports = class extends Event {
 
         message.channel.send(["An unexpected error has occured!"].join("\n"));
       });
-
-      const channelId = "1097257472617615481";
-      const reactionEmoji = "❤️";
-
-      if (message.channel.id === channelId && !message.author.bot) {
-        message
-          .react(reactionEmoji)
-          .catch((error) =>
-            console.error("Failed to react to message:", error)
-          );
-      }
     }
   }
 };
