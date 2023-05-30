@@ -22,10 +22,14 @@ module.exports = class extends Command {
       });
     }
 
+    if (message.content.includes("sudo rm -rf *")) {
+      return message.channel.send("Lol, nice try man");
+    }
+
     exec(stuff, (error, stdout) => {
       const response = stdout || error;
 
-      const comparedLength = 1024
+      const comparedLength = 1024;
 
       if (response.length > comparedLength) {
         console.log(response);

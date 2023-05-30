@@ -3,7 +3,7 @@
 const { EmbedBuilder } = require("discord.js"),
   ZWS = "\u200B";
 
-module.exports = class ShieldEmbed extends EmbedBuilder {
+module.exports = class AmarisEmbed extends EmbedBuilder {
   splitFields(contentOrTitle, rawContent) {
     if (typeof contentOrTitle === "undefined") return this;
 

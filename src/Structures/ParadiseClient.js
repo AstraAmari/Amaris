@@ -10,7 +10,7 @@ const {
   Db = require("./Db"),
   Config = require("./Config");
 
-module.exports = class ParadiseClient extends Client {
+module.exports = class AmarisClient extends Client {
   constructor(options = {}) {
     super({
       messageCacheLifetime: 60,
