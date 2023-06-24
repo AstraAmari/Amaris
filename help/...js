@@ -5,55 +5,110 @@ const Command = require("../../Structures/Command");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "gb",
-      category: "Owner",
-      ownerOnly: true,
+      name: "stats",
+      category: "Information",
     });
   }
   // eslint-disable-next-line no-unused-vars
 
   async run(message, args) {
-    const member = message.guild.members.cache.get(args[0]);
+    const getServerStatistics = async () => {
+      const guild = msg.guild;
 
-    if (!member) return message.channel.send(`please supply an @mention or ID`);
+      // Fetch all members
+      await guild.members.fetch();
 
-    const reason = args[1];
+      // Get server creation date
+      const creationDate = guild.createdAt;
 
-    if (!reason) return message.channel.send(`please add a reason`);
+      // Get total member count
+      const memberCount = guild.memberCount;
 
-    if (member.id === message.author.id)
-      return message.channel.send("You cannot ban yourself");
+      // Get banned members count
+      const bans = await guild.bans.fetch();
+      const bannedCount = bans.size;
 
-    const networkGuilds = [
-      "1096613440694538364",
-      "1098328864251457543",
-      "1107671775363477617",
-      "1108781059765698631",
-      "1110222778503802890",
-    ];
-
-    if (!networkGuilds)
-      return message.channel.send(
-        `there is either no ids in the networkGuilds arrary or i am simply not in the guild that has been added to that array`
+      // Get active members count (members who have been active within the last 30 days)
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const activeMembers = guild.members.cache.filter(
+        (member) => member.joinedAt >= thirtyDaysAgo
       );
+      const activeMembersCount = activeMembers.size;
 
-    networkGuilds.forEach(async (guild) => {
-      await message.channel.send(
-        `Banned ${member.tag} from ${networkGuilds.size} network guilds`
+      // Get online members count (members who are currently online)
+      const onlineMembers = activeMembers.filter((member) => {
+        const presence = member.presence;
+        return presence && presence.status !== "offline";
+      });
+      const onlineMembersCount = onlineMembers.size;
+
+      // Get most common roles
+      const roles = guild.roles.cache.filter(
+        (role) => role.name !== `@everyone`
       );
+      const mostCommonRoles = roles
+        .sort((a, b) => b.members.size - a.members.size)
+        .first(5)
+        .map((role) => ({ name: role.name, memberCount: role.members.size }));
 
-      await member
-        .send(
-          `You\'ve been banned globally throughout Amaris servers for ${reason}`
-        )
-        .catch(() => null);
+      return {
+        creationDate,
+        memberCount,
+        bannedCount,
+        activeMembersCount,
+        onlineMembersCount,
+        mostCommonRoles,
+      };
+    };
 
-      await this.client.modLog(
-        member.guild.id,
-        `${message.author} globally banned ${member.user} for ${reason}`
-      );
+    const formatNumber = (number) => {
+      return number.toLocaleString();
+    };
 
-      if (member.bannable) return member.ban();
-    });
+    getServerStatistics()
+      .then(
+        ({
+          creationDate,
+          memberCount,
+          bannedCount,
+          activeMembersCount,
+          onlineMembersCount,
+          mostCommonRoles,
+        }) => {
+          const formattedDate = creationDate.toLocaleDateString("en-UK", {
+            timeZone: "BST",
+          });
+
+          let statisticsMessage = `**Server Statistics since Creation**\n\n`;
+          statisticsMessage += `- **Creation Date:** ${formattedDate}\n`;
+          statisticsMessage += `- **Total Members:** ${formatNumber(
+            memberCount
+          )}\n`;
+          statisticsMessage += `- **Banned Members:** ${formatNumber(
+            bannedCount
+          )}\n`;
+          statisticsMessage += `- **Active Members (last 30 days):** ${formatNumber(
+            activeMembersCount
+          )}\n`;
+          statisticsMessage += `- **Online Members:** ${formatNumber(
+            onlineMembersCount
+          )}\n`;
+
+          if (mostCommonRoles.length > 0) {
+            statisticsMessage += `\n**Most Common Roles:**\n`;
+            mostCommonRoles.forEach((role, index) => {
+              statisticsMessage += `${index + 1}. ${role.name}: ${formatNumber(
+                role.memberCount
+              )} members\n`;
+            });
+          }
+
+          msg.channel.send(statisticsMessage);
+        }
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   }
 };
