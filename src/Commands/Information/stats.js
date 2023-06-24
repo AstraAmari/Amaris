@@ -12,9 +12,8 @@ module.exports = class extends Command {
   // eslint-disable-next-line no-unused-vars
 
   async run(message, args) {
+    const msg = message;
 
-    const msg = message
-    
     const getServerStatistics = async () => {
       const guild = msg.guild;
 
@@ -39,13 +38,6 @@ module.exports = class extends Command {
       );
       const activeMembersCount = activeMembers.size;
 
-      // Get online members count (members who are currently online)
-      const onlineMembers = activeMembers.filter((member) => {
-        const presence = member.presence;
-        return presence && presence.status !== "offline";
-      });
-      const onlineMembersCount = onlineMembers.size;
-
       // Get most common roles
       const roles = guild.roles.cache.filter(
         (role) => role.name !== `@everyone`
@@ -60,7 +52,6 @@ module.exports = class extends Command {
         memberCount,
         bannedCount,
         activeMembersCount,
-        onlineMembersCount,
         mostCommonRoles,
       };
     };
@@ -93,9 +84,6 @@ module.exports = class extends Command {
           )}\n`;
           statisticsMessage += `- **Active Members (last 30 days):** ${formatNumber(
             activeMembersCount
-          )}\n`;
-          statisticsMessage += `- **Online Members:** ${formatNumber(
-            onlineMembersCount
           )}\n`;
 
           if (mostCommonRoles.length > 0) {

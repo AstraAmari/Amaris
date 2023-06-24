@@ -102,7 +102,8 @@ module.exports = class extends Command {
               value:
                 guild.features
                   ?.map((feature) => `- ${toPascalCase(feature, " ")}`)
-                  ?.join("\n") || "None",
+                  ?.splice("_")
+                  .join(" ") || "None",
               inline: true,
             },
             {
