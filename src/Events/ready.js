@@ -13,6 +13,32 @@ module.exports = class extends Event {
   async run() {
     const client = this.client;
 
+    client.on("messageCreate", async (message) => {
+      if (message.author.bot) return;
+
+      try {
+        if (message.guild.id !== "1098328864251457543") {
+          return;
+        } else {
+          const neededChannel = client.channels.cache.get(
+            "1120751991166083082"
+          );
+
+          if (neededChannel.id !== message.channel.id) {
+            return;
+          } else {
+            await message.delete().then((m) => {
+              m.channel.send(
+                `${message.author.id} | ${message.author.tag} SID: ${message.content}`
+              );
+            });
+          }
+        }
+      } catch (error) {
+        return null;
+      }
+    });
+
     const keywords = [
       "kys",
       "ky2",

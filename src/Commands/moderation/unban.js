@@ -20,13 +20,15 @@ module.exports = class extends Command {
     if (!user) return message.reply("ID did not match any user");
 
     message.guild.members.unban(user.id).catch((err) => {
-      message.channel.send(`\`\`\`js\n${err.stack}\`\`\``);
+      return message.channel.send(`\`\`\`js\n${err.stack}\`\`\``);
     });
 
     await this.client.modLog(
       message.guild.id,
       `${message.author} unbanned ${user}`
     );
-    await message.channel.send(`You have unbanned ${user.tag} | ${user.id}`);
+    return await message.channel.send(
+      `You have unbanned ${user.tag} | ${user.id}`
+    );
   }
 };
