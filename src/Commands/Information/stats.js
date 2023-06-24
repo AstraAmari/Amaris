@@ -12,6 +12,9 @@ module.exports = class extends Command {
   // eslint-disable-next-line no-unused-vars
 
   async run(message, args) {
+
+    const msg = message
+    
     const getServerStatistics = async () => {
       const guild = msg.guild;
 
