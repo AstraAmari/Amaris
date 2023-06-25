@@ -11,6 +11,8 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
+    const boilerplate = "We're waiting for this staff member to add an intro";
+
     if (message.content.includes("1096235445563691071")) {
       const embed = new EmbedBuilder().addFields({
         name: "Howdy, I'm Hailey",
@@ -60,8 +62,74 @@ module.exports = class extends Command {
           `I'm an Indian student majoring in Electronics and Communication.`,
           `Over the past two years, I've been actively involved in development work.`,
           `I have a strong passion for this field and enjoy exploring its intricacies.`,
-          `If you have any questions or would like to connect, feel free to reach out via direct messages.`,
+          `If you have any questions or would like to connect me, feel free to reach out via direct messages.`,
           `I'm always open to engaging in meaningful discussions and collaborations.`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content.includes("416898858379902977")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "Hello there, I'm Kitsune",
+        value: [
+          `Role: Partner Manager, Server Designer`,
+          `Age: [REDACTED]`,
+          `\u200b`,
+          `${boilerplate}`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content.includes("1059225948618240080")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "Hello there, I'm origincookie",
+        value: [
+          `Role: Internal Developer`,
+          `Age: [REDACTED]`,
+          `\u200b`,
+          `${boilerplate}`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content.includes("1115079130719977612")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "Hello there, I'm Wyatt",
+        value: [
+          `Role: CDO`,
+          `Age: [REDACTED]`,
+          `\u200b`,
+          `${boilerplate}`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content.includes("1115079130719977612")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "Hello there, I'm Katenace",
+        value: [
+          `Role: HOS`,
+          `Age: [REDACTED]`,
+          `\u200b`,
+          `${boilerplate}`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content.includes("831640328775532544")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "Hello there, I'm Aspect",
+        value: [
+          `Role: Moderator`,
+          `Age: [REDACTED]`,
+          `\u200b`,
+          `${boilerplate}`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content.includes("831640328775532544")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "Hello there, I'm Frex",
+        value: [
+          `Role: Trial Developer`,
+          `Age: [REDACTED]`,
+          `\u200b`,
+          `${boilerplate}`,
         ].join("\n"),
       });
       return message.channel.send({ embeds: [embed] });
@@ -72,8 +140,7 @@ module.exports = class extends Command {
       value: [
         `Howdy, heres how to use this command`,
         `\u200b`,
-        `The people available to choose from is the Founder, Co Founder, and one of our CDO\'s`,
-        `To do so, use this syntax: \`//intro <id of staff member>\``,
+        `To use this command, please use the syntax: \`//intro <id of staff member>\``,
         `If you see this message again, the user id you put means its not a user id, or the id provided is not a staff member`,
       ].join("\n"),
     });
