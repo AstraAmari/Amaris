@@ -47,7 +47,7 @@ module.exports = class extends Command {
           `Role: Co Founder, Founders Assistant`,
           `Age: 19`,
           `\u200b`,
-          `[REDACTED AT THIS TIME]`,
+          `${boilerplate}`,
         ].join("\n"),
       });
       return message.channel.send({ embeds: [embed] });
