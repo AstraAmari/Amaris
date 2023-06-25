@@ -1,114 +1,45 @@
-"use strict";
-
+const { EmbedBuilder } = require("discord.js");
 const Command = require("../../Structures/Command");
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "stats",
+      name: "intro",
       category: "Information",
+      description: "Staff introductions",
     });
   }
-  // eslint-disable-next-line no-unused-vars
 
   async run(message, args) {
-    const getServerStatistics = async () => {
-      const guild = msg.guild;
-
-      // Fetch all members
-      await guild.members.fetch();
-
-      // Get server creation date
-      const creationDate = guild.createdAt;
-
-      // Get total member count
-      const memberCount = guild.memberCount;
-
-      // Get banned members count
-      const bans = await guild.bans.fetch();
-      const bannedCount = bans.size;
-
-      // Get active members count (members who have been active within the last 30 days)
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      const activeMembers = guild.members.cache.filter(
-        (member) => member.joinedAt >= thirtyDaysAgo
-      );
-      const activeMembersCount = activeMembers.size;
-
-      // Get online members count (members who are currently online)
-      const onlineMembers = activeMembers.filter((member) => {
-        const presence = member.presence;
-        return presence && presence.status !== "offline";
+    if (message.content === "1096235445563691071") {
+      const embed = new EmbedBuilder().addFields({
+        name: "Howdy, I'm Hailey",
+        value: [
+          `Hello, my name is Kheyli(khey-l-a), also known as Hailey in English.`,
+          `I am 21 years old and have been engaged to the beautiful <@1060069099662749696> for 8 and a half years.`,
+          `Currently, I reside in the United Kingdom, although I was born in Moscow, Russia.`,
+          `Interestingly, my mother tongue is German, which may seem confusing, but it makes sense if you don't dwell on it too much.`,
+        ].join("\n"),
       });
-      const onlineMembersCount = onlineMembers.size;
-
-      // Get most common roles
-      const roles = guild.roles.cache.filter(
-        (role) => role.name !== `@everyone`
-      );
-      const mostCommonRoles = roles
-        .sort((a, b) => b.members.size - a.members.size)
-        .first(5)
-        .map((role) => ({ name: role.name, memberCount: role.members.size }));
-
-      return {
-        creationDate,
-        memberCount,
-        bannedCount,
-        activeMembersCount,
-        onlineMembersCount,
-        mostCommonRoles,
-      };
-    };
-
-    const formatNumber = (number) => {
-      return number.toLocaleString();
-    };
-
-    getServerStatistics()
-      .then(
-        ({
-          creationDate,
-          memberCount,
-          bannedCount,
-          activeMembersCount,
-          onlineMembersCount,
-          mostCommonRoles,
-        }) => {
-          const formattedDate = creationDate.toLocaleDateString("en-UK", {
-            timeZone: "BST",
-          });
-
-          let statisticsMessage = `**Server Statistics since Creation**\n\n`;
-          statisticsMessage += `- **Creation Date:** ${formattedDate}\n`;
-          statisticsMessage += `- **Total Members:** ${formatNumber(
-            memberCount
-          )}\n`;
-          statisticsMessage += `- **Banned Members:** ${formatNumber(
-            bannedCount
-          )}\n`;
-          statisticsMessage += `- **Active Members (last 30 days):** ${formatNumber(
-            activeMembersCount
-          )}\n`;
-          statisticsMessage += `- **Online Members:** ${formatNumber(
-            onlineMembersCount
-          )}\n`;
-
-          if (mostCommonRoles.length > 0) {
-            statisticsMessage += `\n**Most Common Roles:**\n`;
-            mostCommonRoles.forEach((role, index) => {
-              statisticsMessage += `${index + 1}. ${role.name}: ${formatNumber(
-                role.memberCount
-              )} members\n`;
-            });
-          }
-
-          msg.channel.send(statisticsMessage);
-        }
-      )
-      .catch((error) => {
-        console.error(error);
+      return message.channel.send({ embeds: [embed] });
+    } else if (message.content === "1060069099662749696") {
+      const embed = new EmbedBuilder().addFields({
+        name: "Test",
+        value: [`1`, `2`, `3`, `4`].join("\n"),
       });
+      return message.channel.send({ embeds: [embed] });
+    }
+
+    const embed = new EmbedBuilder().addFields({
+      name: "How To Use",
+      value: [
+        `Howdy, heres how to use this command`,
+        `\u200b`,
+        `The people available to choose from is the Founder & Co Founder`,
+        `To do so, use this syntax: \`//intro <id of staff member>\``,
+      ].join("\n"),
+    });
+
+    return message.channel.send({ embed: [embed] });
   }
 };
