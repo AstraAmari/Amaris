@@ -72,7 +72,7 @@ module.exports = class extends Command {
       value: [
         `Howdy, heres how to use this command`,
         `\u200b`,
-        `The people available to choose from is the Founder & Co Founder`,
+        `The people available to choose from is the Founder, Co Founder, and one of our CDO\'s`,
         `To do so, use this syntax: \`//intro <id of staff member>\``,
         `If you see this message again, the user id you put means its not a user id, or the id provided is not a staff member`,
       ].join("\n"),
