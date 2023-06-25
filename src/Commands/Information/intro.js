@@ -11,6 +11,19 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
+    if (message.content.includes("@")) {
+      const embed = new EmbedBuilder().addFields({
+        name: "How To Use",
+        value: [
+          `Howdy, heres how to use this command`,
+          `\u200b`,
+          `To use this command, please use the syntax: \`//intro <id of staff member>\``,
+          `If you see this message again, the user id you put means its not a user id, or the id provided is not a staff member`,
+        ].join("\n"),
+      });
+      return message.channel.send({ embeds: [embed] });
+    }
+
     const boilerplate = "We're waiting for this staff member to add an intro";
 
     if (message.content.includes("1096235445563691071")) {
