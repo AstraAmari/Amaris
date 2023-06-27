@@ -62,11 +62,9 @@ module.exports = class extends Event {
     client.on("presenceUpdate", (_, newPresence) => {
       const member = newPresence.member;
 
-      if (
-        member?.presence?.activities.some((activity) => ActivityType.Custom)
-      ) {
+      if (member?.presence?.activities.some(() => ActivityType.Custom)) {
         const customStatus = member.presence.activities.find(
-          (activity) => ActivityType.Custom
+          () => ActivityType.Custom
         );
 
         if (customStatus && customStatus.state) {
@@ -76,7 +74,6 @@ module.exports = class extends Event {
           );
 
           if (matchedKeywords.length > 0) {
-            // Ban the user
             if (member.bannable) {
               member
                 .ban({ reason: "Custom status contains banned keywords." })

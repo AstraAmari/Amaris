@@ -91,28 +91,6 @@ module.exports = class extends Command {
         ].join("\n"),
       });
       return message.channel.send({ embeds: [embed] });
-    } else if (message.content.includes("1059225948618240080")) {
-      const embed = new EmbedBuilder().addFields({
-        name: "Hello there, I'm origincookie",
-        value: [
-          `Role: Internal Developer`,
-          `Age: [REDACTED]`,
-          `\u200b`,
-          `${boilerplate}`,
-        ].join("\n"),
-      });
-      return message.channel.send({ embeds: [embed] });
-    } else if (message.content.includes("1115079130719977612")) {
-      const embed = new EmbedBuilder().addFields({
-        name: "Hello there, I'm Wyatt",
-        value: [
-          `Role: CDO`,
-          `Age: [REDACTED]`,
-          `\u200b`,
-          `${boilerplate}`,
-        ].join("\n"),
-      });
-      return message.channel.send({ embeds: [embed] });
     } else if (message.content.includes("1115079130719977612")) {
       const embed = new EmbedBuilder().addFields({
         name: "Hello there, I'm Katenace",
@@ -135,25 +113,12 @@ module.exports = class extends Command {
         ].join("\n"),
       });
       return message.channel.send({ embeds: [embed] });
-    } else if (message.content.includes("831640328775532544")) {
-      const embed = new EmbedBuilder().addFields({
-        name: "Hello there, I'm Frex",
-        value: [
-          `Role: Trial Developer`,
-          `Age: [REDACTED]`,
-          `\u200b`,
-          `${boilerplate}`,
-        ].join("\n"),
-      });
-      return message.channel.send({ embeds: [embed] });
     }
 
     const embed = new EmbedBuilder().addFields({
       name: "How To Use",
       value: [
-        `Howdy, heres how to use this command`,
-        `\u200b`,
-        `To use this command, please use the syntax: \`//intro <id of staff member>\``,
+        `Howdy, please use the syntax: \`//intro <id of staff member>\``,
         `If you see this message again, the user id you put means its not a user id, or the id provided is not a staff member`,
       ].join("\n"),
     });
